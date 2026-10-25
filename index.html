@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Amazon-inspired Storefront</title>
+    <meta
+      name="description"
+      content="A clean, modern storefront inspired by Amazon's shopping experience."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="page-header">
+      <div class="topbar">
+        <div class="container topbar-inner">
+          <p>Deliver to <strong>India</strong></p>
+          <p>Today's Deals</p>
+          <p>Customer Service</p>
+          <p>Registry</p>
+          <p>Gift Cards</p>
+          <p>Sell</p>
+        </div>
+      </div>
+
+      <div class="nav-main">
+        <div class="container nav-inner">
+          <div class="brand" aria-label="Brand logo">
+            <span class="brand-text">amaz</span><span class="brand-accent">on</span>
+          </div>
+
+          <div class="location-pill" aria-label="Delivery location">
+            <span class="icon">📍</span>
+            <div>
+              <small>Deliver to</small>
+              <strong>India</strong>
+            </div>
+          </div>
+
+          <label class="search" aria-label="Search products">
+            <select class="search-category" aria-label="Select category">
+              <option>All</option>
+              <option>Electronics</option>
+              <option>Fashion</option>
+              <option>Home</option>
+            </select>
+            <input type="text" placeholder="Search Amazon.in" />
+            <button type="button" aria-label="Search">🔍</button>
+          </label>
+
+          <nav class="user-actions" aria-label="User actions">
+            <div class="user-action language">
+              <span>EN</span>
+              <span>▾</span>
+            </div>
+            <div class="user-action">
+              <small>Hello, sign in</small>
+              <strong>Account & Lists</strong>
+            </div>
+            <div class="user-action">
+              <small>Returns</small>
+              <strong>& Orders</strong>
+            </div>
+            <div class="cart" aria-label="Shopping cart">
+              <span class="cart-icon">🛒</span>
+              <span class="cart-count">0</span>
+              <strong>Cart</strong>
+            </div>
+          </nav>
+        </div>
+      </div>
+
+      <div class="category-strip">
+        <div class="container strip-inner">
+          <span>All</span>
+          <span>Best Sellers</span>
+          <span>Mobiles</span>
+          <span>Customer Service</span>
+          <span>Fashion</span>
+          <span>Electronics</span>
+          <span>Home & Kitchen</span>
+          <span>Prime</span>
+          <span>New Releases</span>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero-section">
+        <div class="container hero-layout">
+          <div class="hero-banner">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+              <span class="eyebrow">New Season</span>
+              <h1>Smart essentials for everyday living.</h1>
+              <p>
+                From premium audio to kitchen upgrades, discover products designed
+                to keep up with your pace.
+              </p>
+              <a href="#featured" class="button-primary">Shop now</a>
+            </div>
+          </div>
+
+          <aside class="promo-panel">
+            <div class="panel-box">
+              <span class="eyebrow">Top picks</span>
+              <h3>Home improvement made simple</h3>
+              <ul>
+                <li>Wireless audio</li>
+                <li>Smart lighting</li>
+                <li>Ergonomic desk gear</li>
+              </ul>
+              <a href="#featured">See more</a>
+            </div>
+            <div class="panel-box accent-box">
+              <span class="eyebrow">Weekend deal</span>
+              <h3>Up to 50% off essentials</h3>
+              <button type="button" class="button-secondary">Explore deals</button>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="product-section" id="featured">
+        <div class="container">
+          <div class="section-header">
+            <h2>Best sellers in Electronics</h2>
+            <a href="#">See all deals</a>
+          </div>
+          <div class="product-grid" id="featured-products"></div>
+        </div>
+      </section>
+
+      <section class="deal-banner">
+        <div class="container deal-banner-inner">
+          <div>
+            <span class="eyebrow">Today only</span>
+            <h2>Refresh your setup with premium tech.</h2>
+          </div>
+          <button type="button" class="button-primary">Browse deals</button>
+        </div>
+      </section>
+
+      <section class="product-section">
+        <div class="container">
+          <div class="section-header">
+            <h2>Popular choices for you</h2>
+            <a href="#">Shop more</a>
+          </div>
+          <div class="product-grid" id="popular-products"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="back-to-top">Back to top</div>
+      <div class="container footer-grid">
+        <div>
+          <h3>Get to Know Us</h3>
+          <ul>
+            <li>About us</li>
+            <li>Careers</li>
+            <li>Press releases</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Make Money with Us</h3>
+          <ul>
+            <li>Sell products</li>
+            <li>Affiliate program</li>
+            <li>Advertise</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Help</h3>
+          <ul>
+            <li>Your account</li>
+            <li>Returns</li>
+            <li>FAQs</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Payment</h3>
+          <ul>
+            <li>Cards</li>
+            <li>UPI</li>
+            <li>Wallet</li>
+          </ul>
+        </div>
+      </div>
+      <div class="container footer-bottom">
+        <div class="brand footer-brand" aria-label="Brand logo">
+          <span class="brand-text">amaz</span><span class="brand-accent">on</span>
+        </div>
+        <p>© 2026 Amazon-inspired storefront.</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

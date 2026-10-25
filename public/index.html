@@ -1,42 +1,215 @@
-const express = require('express');
-const cors = require('cors');
-const morgan = require('morgan');
-const path = require('path');
-const dotenv = require('dotenv');
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Amazon.in – Online Shopping</title>
+    <meta
+      name="description"
+      content="Amazon-inspired storefront with premium electronics, home essentials, and lifestyle products."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="topbar">
+        <div class="container topbar-inner">
+          <div class="topbar-left">
+            <span>Deliver to <strong>India</strong></span>
+          </div>
+          <div class="topbar-menu">
+            <span>Today's Deals</span>
+            <span>Customer Service</span>
+            <span>Registry</span>
+            <span>Gift Cards</span>
+            <span>Sell</span>
+          </div>
+        </div>
+      </div>
 
-dotenv.config();
+      <div class="nav-primary">
+        <div class="container nav-inner">
+          <div class="brand" aria-label="Amazon home">
+            <span class="brand-text">amaz</span>
+            <span class="brand-accent">on</span>
+            <span class="brand-smile">◜</span>
+          </div>
 
-const app = express();
-const PORT = process.env.PORT || 5000;
+          <div class="location-box">
+            <span class="location-icon">📍</span>
+            <div>
+              <small>Deliver to</small>
+              <strong>India</strong>
+            </div>
+          </div>
 
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(morgan('dev'));
+          <label class="search-box" aria-label="Search products">
+            <select aria-label="Select category">
+              <option>All</option>
+              <option>Electronics</option>
+              <option>Fashion</option>
+              <option>Home</option>
+            </select>
+            <input id="searchInput" type="text" placeholder="Search Amazon.in" />
+            <button type="button" aria-label="Search">🔍</button>
+          </label>
 
-const productRoutes = require('./routes/products');
-const userRoutes = require('./routes/users');
-const orderRoutes = require('./routes/orders');
+          <div class="header-actions">
+            <div class="mini-action language">
+              <span>EN</span>
+              <span>▾</span>
+            </div>
+            <div class="mini-action">
+              <small>Hello, sign in</small>
+              <strong>Account & Lists</strong>
+            </div>
+            <div class="mini-action">
+              <small>Returns</small>
+              <strong>& Orders</strong>
+            </div>
+            <div class="cart-group">
+              <span class="cart-icon">🛒</span>
+              <span class="cart-count">0</span>
+              <strong>Cart</strong>
+            </div>
+          </div>
+        </div>
+      </div>
 
-app.use('/api/products', productRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/orders', orderRoutes);
+      <div class="nav-secondary">
+        <div class="container nav-secondary-inner">
+          <span>All</span>
+          <span>Best Sellers</span>
+          <span>Mobiles</span>
+          <span>Today's Deals</span>
+          <span>Prime</span>
+          <span>Fashion</span>
+          <span>Electronics</span>
+          <span>Home & Kitchen</span>
+          <span>New Releases</span>
+          <span>Books</span>
+        </div>
+      </div>
+    </header>
 
-app.get('/api/health', (req, res) => {
-  res.json({
-    success: true,
-    message: 'Amazon store backend is running',
-    timestamp: new Date().toISOString()
-  });
-});
+    <main>
+      <section class="hero-shell">
+        <div class="container hero-wrapper">
+          <div class="hero-banner">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+              <span class="eyebrow">New Season</span>
+              <h1>Smart essentials for everyday living.</h1>
+              <p>
+                Discover premium electronics, home upgrades, and must-have lifestyle
+                products built for modern life.
+              </p>
+              <a href="#featured" class="amazon-button">Shop now</a>
+            </div>
+          </div>
 
-const publicDir = path.join(__dirname, '../public');
-app.use(express.static(publicDir));
+          <aside class="side-panels">
+            <div class="info-card">
+              <span class="eyebrow">Top picks</span>
+              <h3>Upgrade your setup</h3>
+              <ul>
+                <li>Wireless audio</li>
+                <li>Smart lighting</li>
+                <li>Desk essentials</li>
+              </ul>
+              <a href="#featured">See more</a>
+            </div>
+            <div class="info-card accent-card">
+              <span class="eyebrow">Weekend deal</span>
+              <h3>Up to 50% off essentials</h3>
+              <button type="button" class="secondary-button">Explore deals</button>
+            </div>
+          </aside>
+        </div>
+      </section>
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(publicDir, 'index.html'));
-});
+      <section class="product-zone" id="featured">
+        <div class="container">
+          <div class="zone-header">
+            <h2>Best sellers in Electronics</h2>
+            <a href="#">See all deals</a>
+          </div>
+          <div id="featuredProducts" class="product-grid"></div>
+        </div>
+      </section>
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
+      <section class="promo-strip">
+        <div class="container promo-inner">
+          <div>
+            <span class="eyebrow">Today only</span>
+            <h2>Refresh your workspace with premium tech.</h2>
+          </div>
+          <button type="button" class="amazon-button compact">Browse deals</button>
+        </div>
+      </section>
+
+      <section class="product-zone">
+        <div class="container">
+          <div class="zone-header">
+            <h2>Popular choices for you</h2>
+            <a href="#">Shop more</a>
+          </div>
+          <div id="popularProducts" class="product-grid"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="back-to-top">Back to top</div>
+      <div class="container footer-grid">
+        <div>
+          <h3>Get to Know Us</h3>
+          <ul>
+            <li>About us</li>
+            <li>Careers</li>
+            <li>Press releases</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Make Money with Us</h3>
+          <ul>
+            <li>Sell products</li>
+            <li>Affiliate program</li>
+            <li>Advertise</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Help</h3>
+          <ul>
+            <li>Your account</li>
+            <li>Returns</li>
+            <li>FAQs</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Payment</h3>
+          <ul>
+            <li>Cards</li>
+            <li>UPI</li>
+            <li>Wallet</li>
+          </ul>
+        </div>
+      </div>
+      <div class="container footer-bottom">
+        <div class="brand footer-brand" aria-label="Amazon home">
+          <span class="brand-text">amaz</span>
+          <span class="brand-accent">on</span>
+        </div>
+        <p>© 2026 Amazon-inspired storefront.</p>
+      </div>
+    </footer>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

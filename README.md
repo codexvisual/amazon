@@ -1,108 +1,250 @@
-const cart = {
-  count: 0,
-  items: []
-};
+# Amazon Storefront Project
 
-const formatMoney = (value) =>
-  new Intl.NumberFormat('en-IN', {
-    style: 'currency',
-    currency: 'INR',
-    maximumFractionDigits: 0
-  }).format(value);
+A clean, modern Amazon-inspired e-commerce storefront built with a Node.js + Express backend and MySQL database, paired with a responsive storefront UI.
 
-const renderProductCard = (product) => {
-  const card = document.createElement('article');
-  card.className = 'product-card';
+## Overview
 
-  card.innerHTML = `
-    <div class="product-image">
-      <img src="${product.image_url}" alt="${product.name}" />
-      <span class="product-badge">${product.badge || 'Popular'}</span>
-    </div>
-    <div class="product-body">
-      <h3 class="product-title">${product.name}</h3>
-      <div class="price-row">
-        <span class="currency">₹</span>
-        <span class="price">${Number(product.price).toFixed(0)}</span>
-        <span class="old-price">${formatMoney(product.compare_price || product.price)}</span>
-      </div>
-      <div class="rating-row">
-        <span class="stars">★★★★★</span>
-        <span>${Number(product.rating || 0).toFixed(1)}</span>
-        <span>(${product.review_count || 0})</span>
-      </div>
-      <button type="button" class="card-button">Add to cart</button>
-    </div>
-  `;
+This project is designed to simulate a real-world online shopping experience with:
+- a premium storefront homepage
+- product listing sections
+- category and search support
+- user registration/login endpoints
+- order creation flow
+- MySQL-powered data layer
 
-  const addButton = card.querySelector('.card-button');
-  addButton.addEventListener('click', () => {
-    cart.count += 1;
-    cart.items.push(product);
-    document.querySelector('.cart-count').textContent = cart.count;
-    addButton.textContent = 'Added';
-    addButton.disabled = true;
-    addButton.style.opacity = '0.8';
-  });
+It follows a practical full-stack architecture suitable for learning, portfolio presentation, and enhancement into a larger production-ready commerce platform.
 
-  return card;
-};
+## Tech Stack
 
-const renderProducts = (products, containerId, filter = () => true) => {
-  const container = document.getElementById(containerId);
-  if (!container) return;
+- Frontend: HTML, CSS, JavaScript
+- Backend: Node.js, Express.js
+- Database: MySQL
+- Environment configuration: dotenv
+- API communication: REST endpoints
+- Development tools: nodemon
 
-  const filtered = products.filter(filter);
-  container.innerHTML = '';
+## Project Structure
 
-  filtered.forEach((product) => {
-    container.appendChild(renderProductCard(product));
-  });
-};
+```bash
+amazon-storefront/
+├── public/
+│   ├── index.html
+│   ├── styles.css
+│   └── app.js
+├── src/
+│   ├── config/
+│   │   └── db.js
+│   ├── routes/
+│   │   ├── products.js
+│   │   ├── users.js
+│   │   └── orders.js
+│   └── server.js
+├── db/
+│   ├── schema.sql
+│   └── seed.sql
+├── .env.example
+├── .gitignore
+├── package.json
+├── README.md
+└── LICENSE
+```
 
-const loadProducts = async () => {
-  try {
-    const response = await fetch('/api/products');
-    const result = await response.json();
+## Features
 
-    if (!result.success) {
-      throw new Error(result.message || 'Unable to load products');
-    }
+### Frontend
+- Amazon-inspired homepage layout
+- Top navigation and category strip
+- Hero banner and promo cards
+- Product listing cards with pricing and ratings
+- Search by product name
+- Cart counter interaction
+- Responsive design for desktop and mobile
 
-    const products = result.data || [];
-    renderProducts(products, 'featuredProducts', (item) => item.is_featured);
-    renderProducts(products, 'popularProducts', (item) => item.is_popular);
-  } catch (error) {
-    console.error('Failed to load products:', error);
-    document.getElementById('featuredProducts').innerHTML = '<p class="fallback">Products could not be loaded.</p>';
-    document.getElementById('popularProducts').innerHTML = '<p class="fallback">Products could not be loaded.</p>';
-  }
-};
+### Backend
+- Product fetch API
+- Product detail API
+- User registration API
+- User login API
+- Order creation API
+- Health check endpoint
 
-document.addEventListener('DOMContentLoaded', () => {
-  loadProducts();
+### Database
+- Categories table
+- Products table
+- Users table
+- Orders table
+- Order items table
+- Seeded demo data
 
-  const searchInput = document.getElementById('searchInput');
-  searchInput.addEventListener('input', async (event) => {
-    const query = event.target.value.trim().toLowerCase();
+## Database Schema
 
-    try {
-      const response = await fetch('/api/products');
-      const result = await response.json();
-      const products = result.data || [];
+### categories
+- id
+- name
+- slug
+- created_at
 
-      renderProducts(products, 'featuredProducts', (item) =>
-        item.is_featured && item.name.toLowerCase().includes(query)
-      );
-      renderProducts(products, 'popularProducts', (item) =>
-        item.is_popular && item.name.toLowerCase().includes(query)
-      );
-    } catch (error) {
-      console.error(error);
-    }
-  });
+### products
+- id
+- category_id
+- name
+- description
+- short_description
+- price
+- compare_price
+- stock
+- image_url
+- badge
+- rating
+- review_count
+- is_featured
+- is_popular
+- created_at
+- updated_at
 
-  document.querySelector('.back-to-top').addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-});
+### users
+- id
+- full_name
+- email
+- password_hash
+- phone
+- created_at
+
+### orders
+- id
+- user_id
+- status
+- total_amount
+- shipping_address
+- created_at
+
+### order_items
+- id
+- order_id
+- product_id
+- quantity
+- unit_price
+
+## API Endpoints
+
+### Products
+- GET /api/products
+- GET /api/products/:id
+
+### Users
+- POST /api/users/register
+- POST /api/users/login
+
+### Orders
+- POST /api/orders
+
+### Health
+- GET /api/health
+
+## Setup Instructions
+
+1. Clone the repository
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Create MySQL database and import schema:
+
+```bash
+mysql -u root -p
+CREATE DATABASE amazon_store;
+EXIT;
+
+mysql -u root -p amazon_store < db/schema.sql
+mysql -u root -p amazon_store < db/seed.sql
+```
+
+4. Copy environment file:
+
+```bash
+cp .env.example .env
+```
+
+5. Update database credentials in `.env` if needed:
+
+```env
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_USER=root
+DB_PASSWORD=
+DB_NAME=amazon_store
+PORT=5000
+```
+
+6. Start the app:
+
+```bash
+npm start
+```
+
+7. Open the project in the browser:
+
+```text
+http://localhost:5000
+```
+
+## Example Product Data
+
+The project includes seeded product entries such as:
+- Sony WH-1000XM5 Headphones
+- Apple iPad 10.9"
+- Philips Smart Air Fryer
+- IFB Microwave
+- Noise Smartwatch
+- Office Chair
+
+## Development Plan
+
+### Phase 1: Basic storefront
+- landing page layout
+- product cards
+- search feature
+- responsive design
+
+### Phase 2: Backend and database
+- Express API setup
+- MySQL schema design
+- REST routes
+- seeded sample products
+
+### Phase 3: Commerce features
+- product detail pages
+- user authentication
+- cart management
+- checkout flow
+- order history
+
+### Phase 4: Production readiness
+- JWT authentication
+- admin dashboard
+- product CRUD
+- image upload support
+- payment integration
+- order tracking
+- Deployable Docker setup
+
+## Notes
+
+This project is inspired by Amazon’s design and shopping model but is not a direct clone of Amazon’s proprietary codebase or branding. It is a clean, original storefront implementation for learning and portfolio use.
+
+## Future Enhancements
+
+- React frontend migration
+- Tailwind CSS styling
+- Admin panel for products/orders
+- Secure password hashing (bcrypt)
+- JWT-based authentication
+- Product category filtering
+- Checkout and payment integration
+- Deployment to Vercel / Render / Railway / DigitalOcean
+
+## License
+
+MIT
